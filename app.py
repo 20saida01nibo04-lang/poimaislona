@@ -202,7 +202,10 @@ async def main():
     await dp.start_polling(bot)
 
 
-# ---- Запуск Telegram polling + веб-сервера для Render ----
+if __name__ == "__main__":
+    asyncio.run(main())
+
+# ---- Фейковый веб-сервер для Render ----
 from aiohttp import web
 
 async def handle(request):
@@ -211,21 +214,8 @@ async def handle(request):
 app = web.Application()
 app.router.add_get("/", handle)
 
-async def run_bot_and_web():
-    # Поднимаем веб-сервер (Render увидит порт)
-    runner = web.AppRunner(app)
-    await runner.setup()
-    port = int(os.getenv("PORT", "10000"))
-    site = web.TCPSite(runner, host="0.0.0.0", port=port)
-    await site.start()
-    print(f"✅ Web server started on port {port}")
-
-    # Запускаем Telegram polling
-    print("✅ Starting Telegram polling…")
-    await dp.start_polling(bot)
-
 if __name__ == "__main__":
-    try:
-        asyncio.run(run_bot_and_web())
-    except (KeyboardInterrupt, SystemExit):
-        print("Bot stopped.")
+    import os
+    port = int(os.environ.get("PORT", 10000))
+    web.run_app(app, port=port)
+
