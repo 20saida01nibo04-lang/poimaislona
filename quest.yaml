@@ -1,0 +1,15 @@
+
+quest:
+  id: "catch-elephant"
+  title: "Поймай слона"
+  start_point_id: "start"
+  finish_point_id: "finish"
+  points:
+    - id: "start"
+      type: "photo"
+      title: "Стартовая точка"
+      instruction: "Сделай фото у старта."
+    - id: "finish"
+      type: "finish"
+      title: "Финиш"
+      instruction: "Поздравляем, ты на финише!"
