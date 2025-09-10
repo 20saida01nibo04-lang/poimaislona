@@ -196,3 +196,14 @@ async def main():
 if __name__ == "__main__":
     asyncio.run(main())
 
+from aiohttp import web
+
+async def handle(request):
+    return web.Response(text="Bot is running!")
+
+app = web.Application()
+app.router.add_get("/", handle)
+
+if __name__ == "__main__":
+    web.run_app(app, port=10000)
+
