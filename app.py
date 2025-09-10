@@ -1,11 +1,10 @@
-from aiogram.client.default import DefaultBotProperties
-
 import asyncio, os, json, re, random
 from pathlib import Path
 from typing import Dict, Any, Optional
 
 import yaml
 from aiogram import Bot, Dispatcher, F
+from aiogram.client.default import DefaultBotProperties
 from aiogram.types import Message
 from aiogram.filters import CommandStart, Command
 from aiogram.fsm.context import FSMContext
@@ -196,3 +195,14 @@ async def main():
 if __name__ == "__main__":
     asyncio.run(main())
 
+# ---- Фейковый веб-сервер для Render ----
+from aiohttp import web
+
+async def handle(request):
+    return web.Response(text="Bot is running!")
+
+app = web.Application()
+app.router.add_get("/", handle)
+
+if __name__ == "__main__":
+    web.run_app(app, port=10000)
